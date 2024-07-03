@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://rh00tt5y4sug"]
+
+[ext_resource type="Texture2D" uid="uid://cp1mmpr4qkkxp" path="res://sprites/card_back.png" id="1_6ddxg"]
+[ext_resource type="Script" path="res://card.gd" id="1_jqlal"]
+[ext_resource type="Texture2D" uid="uid://2piri4udgqox" path="res://sprites/Cards (large)/card_clubs_02.png" id="2_nb8al"]
+[ext_resource type="Script" path="res://card_sprite.gd" id="3_i4dub"]
+
+[node name="Card" type="Node2D"]
+script = ExtResource("1_jqlal")
+face_sprite = ExtResource("2_nb8al")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_6ddxg")
+script = ExtResource("3_i4dub")
