@@ -6,9 +6,10 @@ var card_prefab = preload("res://card.tscn")
 
 var dealt_cards : Array[Card]
 
-signal card_selected (card_face)
+var check_val: String = ""
 
-# Called when the node enters the scene tree for the first time.
+signal card_selected (card_face: String)
+
 func _ready():
 	connect("card_selected", check_card)
 	
@@ -17,9 +18,17 @@ func _ready():
 func deal_card():
 	var instance : Card = card_prefab.instantiate()
 	instance.face_sprite = card_faces.pick_random()
-	#instance.flipped.connect(func(): check_card(instance.face_sprite.resource_name))
 	dealt_cards.push_back(instance)
 	add_child(instance)
 
 func check_card(card_face: String):
 	print("Dealer sees: " + card_face)
+	
+	if check_val == "":
+		check_val = card_face
+	else:
+		if check_val == card_face:
+			print("That's a match!")
+		else:
+			print("No match found.")
+		check_val = ""
