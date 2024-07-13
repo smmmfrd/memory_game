@@ -15,7 +15,10 @@ signal clicked
 signal flipped(card_face: String)
 
 func _ready():
-	clicked.connect(flip)
+	clicked.connect(func():
+		if not face_up:
+			flip()
+	)
 
 func flip():
 	var t := create_tween()
@@ -26,6 +29,5 @@ func flip():
 	)
 	t.tween_property(sprite, "scale", Vector2(1, 1), 0.1)
 	t.tween_callback(func(): 
-		#print(face_sprite.resource_path)
 		get_parent().emit_signal("card_selected", face_sprite.resource_path)
 	)
