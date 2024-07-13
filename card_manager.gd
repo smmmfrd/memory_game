@@ -4,7 +4,7 @@ var card_prefab = preload("res://card.tscn")
 
 @export var card_faces : Array[Texture2D]
 
-@export var number_of_cards: int = 2
+@export var table: Vector2i
 
 var dealt_cards : Array[Card]
 
@@ -18,13 +18,16 @@ signal card_selected (card_face: String)
 func _ready():
 	connect("card_selected", check_card)
 	
-	for i in range(number_of_cards):
+	for i in range(table.x + table.y):
 		deal_card(i)
 
 func deal_card(index: int):
 	var instance : Card = card_prefab.instantiate()
 	instance.face_sprite = card_faces.pick_random()
-	instance.global_position = self.global_position + Vector2(card_width * index,0)
+	
+	var dealt_pos := Vector2(card_width * (index % table.x), card_height * floor(index /table.x ))
+	instance.global_position = self.global_position + dealt_pos
+	
 	dealt_cards.push_back(instance)
 	add_child(instance)
 
