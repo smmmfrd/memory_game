@@ -18,12 +18,25 @@ signal card_selected (card_face: String)
 func _ready():
 	connect("card_selected", check_card)
 	
+	var deck : Array[Texture2D]
+	
+	var possible_cards = card_faces
+	possible_cards.shuffle()
+	
+	for i in range((table.x + table.y) / 2):
+		var new_card = possible_cards.pop_front()
+		
+		deck.append(new_card)
+		deck.append(new_card)
+	
+	deck.shuffle()
+	
 	for i in range(table.x + table.y):
-		deal_card(i)
+		deal_card(i, deck[i])
 
-func deal_card(index: int):
+func deal_card(index: int, card_face: Texture2D):
 	var instance : Card = card_prefab.instantiate()
-	instance.face_sprite = card_faces.pick_random()
+	instance.face_sprite = card_face
 	
 	var dealt_pos := Vector2(card_width * (index % table.x), card_height * floor(index /table.x ))
 	instance.global_position = self.global_position + dealt_pos
