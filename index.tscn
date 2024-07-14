@@ -4,9 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://2piri4udgqox" path="res://sprites/Cards (large)/card_clubs_02.png" id="2_1bclo"]
 [ext_resource type="Texture2D" uid="uid://banm56flj5ywx" path="res://sprites/Cards (large)/card_clubs_03.png" id="2_35n1r"]
 
-[node name="Dealer" type="Node2D"]
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Dealer" type="Node2D" parent="."]
 script = ExtResource("1_urnog")
 card_faces = Array[Texture2D]([ExtResource("2_1bclo"), ExtResource("2_35n1r")])
 table = Vector2i(2, 2)
-
-[node name="Camera2D" type="Camera2D" parent="."]

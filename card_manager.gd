@@ -6,8 +6,6 @@ var card_prefab = preload("res://card.tscn")
 
 @export var table: Vector2i
 
-var dealt_cards : Array[Card]
-
 var check_val: String = ""
 
 signal card_selected (card_face: String)
@@ -41,17 +39,23 @@ func deal_card(index: int, card_face: Texture2D):
 	var dealt_pos := Vector2(card_width * (index % table.x), card_height * floor(index /table.x ))
 	instance.global_position = self.global_position + dealt_pos
 	
-	dealt_cards.push_back(instance)
 	add_child(instance)
 
 func check_card(card_face: String):
-	print("Dealer sees: " + card_face)
-	
 	if check_val == "":
 		check_val = card_face
 	else:
-		if check_val == card_face:
-			print("That's a match!")
-		else:
-			print("No match found.")
+		process_choice(check_val == card_face)
+		
 		check_val = ""
+
+func process_choice(cards_match: bool):
+	for i in self.get_children():
+		if i.face_up:
+			if cards_match:
+				i.queue_free()
+			else:
+				i.flip()
+	
+	if len(self.get_children()) == 0:
+		print("Board Cleared!")
