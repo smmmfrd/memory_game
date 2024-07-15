@@ -31,6 +31,19 @@ func _ready():
 	
 	for i in range(table.x + table.y):
 		deal_card(i, deck[i])
+	
+	center_table()
+
+func center_table():
+	# Set the table's position to half the board size, then add half a card in size
+	# With the cards' origin is at the center, and the first is made at the
+	# table's center, this calculation makes a perfect center.
+	var dest = Vector2(-(table.x * 0.5) * card_width + (card_width / 2),
+		-(table.y * 0.5) * card_height + (card_height / 2))
+	print(dest)
+	
+	global_position = dest
+	print(global_position)
 
 func deal_card(index: int, card_face: Texture2D):
 	var instance : Card = card_prefab.instantiate()
