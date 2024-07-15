@@ -21,7 +21,7 @@ func _ready():
 	var possible_cards = card_faces
 	possible_cards.shuffle()
 	
-	for i in range((table.x + table.y) / 2):
+	for i in range((table.x * table.y) / 2):
 		var new_card = possible_cards.pop_front()
 		
 		deck.append(new_card)
@@ -29,7 +29,7 @@ func _ready():
 	
 	deck.shuffle()
 	
-	for i in range(table.x + table.y):
+	for i in range(table.x * table.y):
 		deal_card(i, deck[i])
 	
 	center_table()
