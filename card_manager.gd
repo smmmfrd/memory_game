@@ -5,8 +5,10 @@ var card_prefab = preload("res://card.tscn")
 @export var card_faces : Array[Texture2D]
 
 @export var table: Vector2i
+@export var copies: int = 2
 
 var check_val: String = ""
+var num_check: int = 0
 
 signal card_selected (card_face: String)
 
@@ -16,21 +18,7 @@ signal card_selected (card_face: String)
 func _ready():
 	connect("card_selected", check_card)
 	
-	var deck : Array[Texture2D]
-	
-	var possible_cards = card_faces
-	possible_cards.shuffle()
-	
-	for i in range((table.x * table.y) / 2):
-		var new_card = possible_cards.pop_front()
-		
-		deck.append(new_card)
-		deck.append(new_card)
-	
-	deck.shuffle()
-	
-	for i in range(table.x * table.y):
-		deal_card(i, deck[i])
+	deal_table()
 	
 	center_table()
 
@@ -45,6 +33,23 @@ func center_table():
 	global_position = dest
 	print(global_position)
 
+func deal_table():
+	var deck : Array[Texture2D]
+	
+	var possible_cards = card_faces
+	possible_cards.shuffle()
+	
+	for i in range((table.x * table.y) / copies):
+		var new_card = possible_cards.pop_front()
+		
+		for j in copies:
+			deck.append(new_card)
+	
+	deck.shuffle()
+	
+	for i in range(table.x * table.y):
+		deal_card(i, deck[i])
+
 func deal_card(index: int, card_face: Texture2D):
 	var instance : Card = card_prefab.instantiate()
 	instance.face_sprite = card_face
@@ -55,14 +60,22 @@ func deal_card(index: int, card_face: Texture2D):
 	add_child(instance)
 
 func check_card(card_face: String):
-	if check_val == "":
+	num_check += 1
+	print(num_check)
+	
+	if num_check == 1:
 		check_val = card_face
 	else:
-		process_choice(check_val == card_face)
-		
-		check_val = ""
+		if check_val == card_face and num_check == copies:
+			clear_match(true)
+			num_check = 0
+		elif check_val != card_face:
+			clear_match(false)
+			
+			check_val = ""
+			num_check = 0
 
-func process_choice(cards_match: bool):
+func clear_match(cards_match: bool):
 	for i in self.get_children():
 		if i.face_up:
 			if cards_match:

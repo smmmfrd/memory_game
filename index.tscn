@@ -14,3 +14,4 @@
 script = ExtResource("1_urnog")
 card_faces = Array[Texture2D]([ExtResource("2_1bclo"), ExtResource("2_35n1r"), ExtResource("4_uyi3g"), ExtResource("5_dg54b")])
 table = Vector2i(4, 2)
+copies = 4
