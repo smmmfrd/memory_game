@@ -29,5 +29,6 @@ func flip():
 	)
 	t.tween_property(sprite, "scale", Vector2(1, 1), 0.1)
 	t.tween_callback(func(): 
-		get_parent().emit_signal("card_selected", face_sprite.resource_path)
+		if face_up:
+			get_parent().emit_signal("card_selected", face_sprite.resource_path)
 	)
