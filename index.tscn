@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1nfcv780hyvq"]
+[gd_scene load_steps=7 format=3 uid="uid://c1nfcv780hyvq"]
 
-[ext_resource type="Script" path="res://card_manager.gd" id="1_urnog"]
+[ext_resource type="Script" path="res://scripts/card_manager.gd" id="1_urnog"]
 [ext_resource type="Texture2D" uid="uid://2piri4udgqox" path="res://sprites/Cards (large)/card_clubs_02.png" id="2_1bclo"]
 [ext_resource type="Texture2D" uid="uid://banm56flj5ywx" path="res://sprites/Cards (large)/card_clubs_03.png" id="2_35n1r"]
 [ext_resource type="Texture2D" uid="uid://bythhkcsq40m" path="res://sprites/Cards (large)/card_clubs_04.png" id="4_uyi3g"]
 [ext_resource type="Texture2D" uid="uid://8aiwjmfjx63i" path="res://sprites/Cards (large)/card_clubs_05.png" id="5_dg54b"]
+[ext_resource type="Resource" uid="uid://c5q8huptcdhfx" path="res://tables/base.tres" id="6_layhm"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -13,5 +14,4 @@
 [node name="Dealer" type="Node2D" parent="."]
 script = ExtResource("1_urnog")
 card_faces = Array[Texture2D]([ExtResource("2_1bclo"), ExtResource("2_35n1r"), ExtResource("4_uyi3g"), ExtResource("5_dg54b")])
-table = Vector2i(4, 2)
-copies = 4
+table_data = ExtResource("6_layhm")
